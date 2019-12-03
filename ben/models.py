@@ -5,7 +5,6 @@ from bases.models import ClaseModelo
 
 
 class Genero( ClaseModelo ):
-
     descripcion = models.CharField(
         max_length=45,
         help_text='Descripción del género',
@@ -28,7 +27,6 @@ class Genero( ClaseModelo ):
 ########################################################################################################################
 
 class Documento( ClaseModelo ):
-
     descripcion = models.CharField(
         max_length=45,
         help_text='Descripción del documento de identidad',
@@ -50,7 +48,6 @@ class Documento( ClaseModelo ):
 
 ########################################################################################################################
 class Tipo_beneficiario( ClaseModelo ):
-
     descripcion = models.CharField(
         max_length=45,
         help_text='Descripción del tipo de beneficiario, ej: Estudiante Bachillerato',
@@ -72,7 +69,6 @@ class Tipo_beneficiario( ClaseModelo ):
 
 ########################################################################################################################
 class Dependencia( ClaseModelo ):
-
     descripcion = models.CharField(
         max_length=45,
         help_text='Descripcion de la dependencia a la que pertenece, ej: Sistemas, Vigilancia',
@@ -95,7 +91,6 @@ class Dependencia( ClaseModelo ):
 ########################################################################################################################
 
 class Beneficiario( ClaseModelo ):
-
     rfid = models.CharField(
         max_length=10,
         help_text='RFID carné o llavero    ',
