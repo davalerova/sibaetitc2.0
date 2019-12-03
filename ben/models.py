@@ -97,7 +97,7 @@ class Dependencia( ClaseModelo ):
 class Beneficiario( ClaseModelo ):
 
     rfid = models.CharField(
-        max_length=45,
+        max_length=10,
         help_text='RFID carné o llavero    ',
         unique=True,
         verbose_name='RFID'
@@ -179,7 +179,7 @@ class Beneficiario( ClaseModelo ):
         super( Beneficiario, self ).save()
 
     def __str__(self):
-        return '{}'.format( self.id_rfid_beneficiario )
+        return '{}'.format( self.rfid )
 
     class Meta:
         verbose_name = 'Beneficiario'
