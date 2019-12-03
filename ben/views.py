@@ -61,7 +61,7 @@ class DocumentoNew(LoginRequiredMixin, generic.CreateView):
     template_name = 'ben/documento_form.html'
     context_object_name = 'obj'
     form_class = DocumentoForm
-    success_url = reverse_lazy('ben:tipo_beneficiario_list')
+    success_url = reverse_lazy('ben:documento_list')
     login_url = 'bases:login'
 
     def form_valid(self, form):
@@ -84,7 +84,7 @@ class DocumentoDel(LoginRequiredMixin, generic.DeleteView):
     model = Documento
     template_name = 'ben/documento_del.html'
     context_object_name = 'obj'
-    success_url = reverse_lazy('ben:tipo_beneficiario_list')
+    success_url = reverse_lazy('ben:documento_list')
 
 
 
@@ -198,17 +198,12 @@ class BeneficiarioEdit(LoginRequiredMixin, generic.UpdateView):
         form.instance.um = self.request.user.id
         return super().form_valid(form)
 
-class BeneficiarioDel(LoginRequiredMixin, generic.DeleteView):
-    model = Beneficiario
-    template_name = 'ben/beneficiario_del.html'
-    context_object_name = 'obj'
-    success_url = reverse_lazy('ben:beneficiario_list')
 
 
 
 
-def dependencia_inactivar(request, id_dependencia):
-    dependencia = Dependencia.objects.filter( pk=id_dependencia ).first()
+def dependencia_inactivar(request, id):
+    dependencia = Dependencia.objects.filter( pk=id ).first()
     contexto = {}
     template_name = "ben/dependencia_del.html"
 
@@ -225,8 +220,8 @@ def dependencia_inactivar(request, id_dependencia):
 
     return render( request, template_name, contexto )
 ########################################################################################################################
-def genero_inactivar(request, id_genero):
-    genero = Genero.objects.filter( pk=id_genero ).first()
+def genero_inactivar(request, id):
+    genero = Genero.objects.filter( pk=id ).first()
     contexto = {}
     template_name = "ben/genero_del.html"
 
@@ -244,8 +239,8 @@ def genero_inactivar(request, id_genero):
     return render( request, template_name, contexto )
 
 ########################################################################################################################
-def documento_inactivar(request, id_documento_identidad):
-    documento = Documento.objects.filter( pk=id_documento_identidad ).first()
+def documento_inactivar(request, id):
+    documento = Documento.objects.filter( pk=id ).first()
     contexto = {}
     template_name = "ben/documento_del.html"
 
@@ -259,5 +254,44 @@ def documento_inactivar(request, id_documento_identidad):
         documento.estado = False
         documento.save()
         return redirect( "ben:documento_list" )
+
+    return render( request, template_name, contexto )
+
+########################################################################################################################
+def beneficiario_inactivar(request, id):
+    beneficiario = Beneficiario.objects.filter( pk=id ).first()
+    contexto = {}
+    template_name = "ben/beneficiario_del.html"
+
+    if not beneficiario:
+        return redirect( "ben:beneficiario_list" )
+
+    if request.method == 'GET':
+        contexto = {'obj': beneficiario}
+
+    if request.method == 'POST':
+        beneficiario.estado = False
+        beneficiario.save()
+        return redirect( "ben:beneficiario_list" )
+
+    return render( request, template_name, contexto )
+
+
+########################################################################################################################
+def tipo_beneficiario_inactivar(request, id):
+    tipo_beneficiario = Tipo_beneficiario.objects.filter( pk=id ).first()
+    contexto = {}
+    template_name = "ben/tipo_beneficiario_del.html"
+
+    if not tipo_beneficiario:
+        return redirect( "ben:tipo_beneficiario_list" )
+
+    if request.method == 'GET':
+        contexto = {'obj': tipo_beneficiario}
+
+    if request.method == 'POST':
+        tipo_beneficiario.estado = False
+        tipo_beneficiario.save()
+        return redirect( "ben:tipo_beneficiario_list" )
 
     return render( request, template_name, contexto )

@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -71,11 +71,11 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Datos beneficiario:</h6>
-                    <a class="collapse-item" href="{% url 'ben:beneficiario_list' %}">Beneficiario</a>
-                    <a class="collapse-item" href="#">Dependencia</a>
-                    <a class="collapse-item" href="#">Documento</a>
+                    <a class="collapse-item" href="{% url 'ben:beneficiario_list' %}"><strong>Beneficiario</strong></a>
+                    <a class="collapse-item" href="{% url 'ben:dependencia_list' %}">Dependencia</a>
+                    <a class="collapse-item" href="{% url 'ben:documento_list' %}">Documento</a>
                     <a class="collapse-item" href="{% url 'ben:genero_list' %}">Género</a>
-                    <a class="collapse-item" href="#">Tipo beneficiario</a>
+                    <a class="collapse-item" href="{% url 'ben:tipo_beneficiario_list' %}">Tipo beneficiario</a>
                 </div>
             </div>
         </li>
@@ -152,7 +152,7 @@
             </div>
         </li>
 
-         <!-- Divider -->
+        <!-- Divider -->
         <hr class="sidebar-divider">
 
         <!-- Heading -->
@@ -372,8 +372,11 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username.title|lower }}</span>
+                           {% if user.is_authenticated %}
+                            <img class="img-profile rounded-circle"
+                                 src="{% static 'base/img/user.png' %}">
+                            {% endif %}
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -414,10 +417,10 @@
             </div>
             {% endblock page_content %}
             <!-- /.container-fluid -->
-            {% block footer %}
         </div>
         <!-- End of Main Content -->
 
+        {% block footer %}
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
@@ -427,9 +430,9 @@
             </div>
         </footer>
         <!-- End of Footer -->
+        {% endblock footer %}
 
     </div>
-    {% endblock footer %}
     <!-- End of Content Wrapper -->
     {% block login %}
     {% endblock login %}
@@ -447,15 +450,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Seleccione "Cerrar sesión" a continuación si está listo para finalizar su sesión
+                actual.
+            </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="{% url 'bases:logout' %}">Salir</a>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="{% url 'bases:logout' %}">Cerrar sesión</a>
             </div>
         </div>
     </div>
@@ -496,6 +501,8 @@
     $(document).ready(function () {
       jQuery.datetimepicker.setLocale('es');
     });
+
+
 
 
 </script>
@@ -547,6 +554,8 @@
         mensaje("{{ message }}","{{ message.tags }}");
       {% endfor %}
     {% endif %}
+
+
 
 
 
