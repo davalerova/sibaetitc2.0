@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+<div class="card shadow mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Listado de beneficiarios</h6>
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Acciones</div>
+                <a class="dropdown-item" href="{% url 'ben:beneficiario_new' %}"><i
+                        class="far fa-calendar-plus"></i>Nuevo</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        {% if not obj %}
+        <div class="alert alert-info">No hay beneficiarios registradas</div>
+        {% else %}
+        <table class="table table-striped table-hover">
+            <thead>
+            <!--<th>RFID</th>-->
+            <th>RFID</th>
+            <th>Doc.</th>
+            <th>N. doc.</th>
+            <th>Dependencia</th>
+            <th>Tipo</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>E-mail</th>
+            <th>F. Nac</th>
+            <th>Saldo</th>
+            <th>Estado</th>
+            <!--<<th>F. Creado</th>
+            <th>F. Modif.</th>
+            <th>Foto</th>-->
+            <th class="all">Acciones</th>
+            </thead>
+            <tbody>
+            {% for item in obj %}
+            <tr>
+                <!--<<td>{{ item.id_beneficiario }}</td>-->
+                <td>{{ item.id }}</td>
+                <td>{{ item.documento|title }}</td>
+                <td>{{ item.numero_documento }}</td>
+                <td>{{ item.dependencia|title }}</td>
+                <td>{{ item.tipo_beneficiario|title }}</td>
+                <td>{{ item.nombres|title }}</td>
+                <td>{{ item.apellidos|title }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.fecha_nacimiento }}</td>
+                <td>{{ item.saldo }}</td>
+                <!--<<td>{{ item.foto_beneficiario }}</td>-->
+                <td>{{ item.estado|yesno:"Activo,Inactivo" }}</td>
+                <!--<<td>{{ item.fc|date:"d/m/Y H:i:s" }}</td>
+                <td>{{ item.fm|date:"d/m/Y H:i:s" }}</td>-->
+                <td>
+                    <a href="{% url 'ben:beneficiario_edit' item.id %}"
+                       class="btn btn-warning btn-circle"
+                       role="button"><i class="far fa-edit"></i></a>
+                    <a href="{% url 'ben:beneficiario_del' item.id %}"
+                       class="btn btn-danger btn-circle"
+                       role="button"><i class="far fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js_page %}
+<script>
+  // Call the dataTables jQuery plugin
+  $(document).ready(function() {
+    $('.table').DataTable({
+      "language": {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Registros por página: _MENU_",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "<span class='fa fa-angle-double-left'></span>",
+            "sLast": "<span class='fa fa-angle-double-right'></span>",
+            "sNext": "<span class='fa fa-angle-right'></span>",
+            "sPrevious": "<span class='fa fa-angle-left'></span>"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+      }
+    });
+  });
+
+</script>
+{% endblock %}

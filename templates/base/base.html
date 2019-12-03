@@ -39,14 +39,17 @@
         </a>
 
         <!-- Divider -->
+        {% if user.is_staff %}
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{BASE_DIR}}/admin/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Admin</span></a>
+
         </li>
+        {% endif %}
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -68,10 +71,10 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Datos beneficiario:</h6>
-                    <a class="collapse-item" href="#">Beneficiario</a>
+                    <a class="collapse-item" href="{% url 'ben:beneficiario_list' %}">Beneficiario</a>
                     <a class="collapse-item" href="#">Dependencia</a>
                     <a class="collapse-item" href="#">Documento</a>
-                    <a class="collapse-item" href="#">Género</a>
+                    <a class="collapse-item" href="{% url 'ben:genero_list' %}">Género</a>
                     <a class="collapse-item" href="#">Tipo beneficiario</a>
                 </div>
             </div>
@@ -202,7 +205,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <!-- Topbar Search -->
+                <!-- Topbar Search
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
@@ -213,7 +216,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form>-->
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -458,17 +461,98 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="popup"></div>
+
 <!-- Bootstrap core JavaScript-->
-<script src="{% static 'base/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'base/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static  'base/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static  'base/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{% static 'base/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static  'base/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="{% static 'base/js/sb-admin-2.min.js' %}"></script>
-{% block js_page %}
-{% endblock js_page %}
+<script src="{% static  'base/js/sb-admin-2.min.js' %}"></script>
+
+<!-- Page level plugins -->
+<script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+<script src="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+        integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table-locale-all.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+        integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+
+<script>
+    $(document).ready(function () {
+      jQuery.datetimepicker.setLocale('es');
+    });
+
+
+</script>
+
+{% block control_modal%}
+<script>
+    function abrir_modal(url)
+    {
+
+      $("#popup").load(url, function(){
+        $(this).modal({
+          backdrop:'static',
+          keyboard: false
+        })
+        $(this).modal('show');
+      });
+      return false;
+    }
+
+    function cerrar_modal()
+    {
+      $('#popup').modal('hide');
+      return false;
+    }
+
+    function mensaje(msg,color='green')
+    {
+      if (color=="success")
+      {
+        color="green";
+      }
+      if (color=="error")
+      {
+        color="red";
+      }
+
+
+      $.alert({
+        title:'',
+        theme:'material',
+        type:color,
+        content:msg
+      });
+    }
+
+    {% if messages %}
+      {% for message in messages %}
+        console.log("{{ message.tags }}");
+        mensaje("{{ message }}","{{ message.tags }}");
+      {% endfor %}
+    {% endif %}
+
+
+
+</script>
+{% endblock%}
+{% block js_page %} {% endblock %}
 </body>
 
 </html>
