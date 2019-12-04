@@ -90,8 +90,8 @@ class Programacion_servicio( ClaseModelo ):
     )
 
     fecha = models.DateField(
-        help_text='Fecha en que se programa prestar un servicio',
-        verbose_name='Fecha programacion servicio',
+        help_text='Fecha en que se programa un servicio',
+        verbose_name='Fecha programación servicio',
         default=datetime.now()
 
     )
@@ -104,3 +104,4 @@ class Programacion_servicio( ClaseModelo ):
     class Meta:
         verbose_name = 'Programación Servicio'
         verbose_name_plural = 'Programación Servicios'
+        unique_together = ('servicio', 'fecha',)
