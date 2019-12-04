@@ -23,6 +23,7 @@ urlpatterns = [
     path('ben/', include(('ben.urls','ben'), namespace='ben')),
     path('ser/', include(('ser.urls','ser'), namespace='ser')),
     path('ins/', include(('ins.urls','ins'), namespace='ins')),
+    path('rec/', include(('rec.urls','rec'), namespace='rec')),
 
     path( 'admin/', admin.site.urls ),
 ]
