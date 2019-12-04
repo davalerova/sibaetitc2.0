@@ -22,6 +22,7 @@ urlpatterns = [
     path( '', include( ('bases.urls', 'bases'), namespace='bases' ) ),
     path('ben/', include(('ben.urls','ben'), namespace='ben')),
     path('ser/', include(('ser.urls','ser'), namespace='ser')),
+    path('ins/', include(('ins.urls','ins'), namespace='ins')),
 
     path( 'admin/', admin.site.urls ),
 ]

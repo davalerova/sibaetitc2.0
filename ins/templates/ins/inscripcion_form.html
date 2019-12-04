@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+<form method="POST" class="form">
+    {% csrf_token %}
+    <div class="col-xl-6 col-md-6 mb-6">
+        {% if obj %}
+        <div class="card border-left-warning shadow h-100 py-2">
+            {% else %}
+            <div class="card border-left-success shadow h-100 py-2">
+                {% endif %}
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                {% if obj %} Editar {% else %} Nuevo {% endif %} servicio
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{ form.beneficiario.label_tag }}</label>
+                                    <div class="form-group"> {{ form.beneficiario }}
+                                        <small class="text-info">
+                                            Ingrese el nombre del servicio
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.servicio.label_tag }}</label>
+                                    {{ form.servicio }}
+                                    <small class="text-info">
+                                        Ingrese la hora de incio del servicio con formato hh:mm:ss
+                                    </small>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="form-group">
+                                    <label>{{ form.tipo_afiliacion.label_tag }}</label>
+                                    {{ form.tipo_afiliacion }}
+                                    <small class="text-info">
+                                        Ingrese la hora de finalización del servicio con formato hh:mm:ss
+                                    </small>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="form-group">
+                                    <label>{{ form.lunes.label_tag }}</label>
+                                    {{ form.lunes }}
+                                    <small class="text-info">
+                                        Desmarque la casilla si el servicio no se presta los días lunes
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.martes.label_tag }}</label>
+                                    {{ form.martes }}
+                                    <small class="text-info">
+                                        Desmarque la casilla si el servicio no se presta los días martes
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.miercoles.label_tag }}</label>
+                                    {{ form.miercoles }}
+                                    <small class="text-info">
+                                        Desmarque la casilla si el servicio no se presta los días miércoles
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.jueves.label_tag }}</label>
+                                    {{ form.jueves }}
+                                    <small class="text-info">
+                                        Desmarque la casilla si el servicio no se presta los días jueves
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.viernes.label_tag }}</label>
+                                    {{ form.viernes }}
+                                    <small class="text-info">
+                                        Desmarque la casilla si el servicio no se presta los días viernes
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.sabado.label_tag }}</label>
+                                    {{ form.sabado }}
+                                    <small class="text-info">
+                                        Desmarque la casilla si el servicio no se presta los días sábados
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.estado.label_tag }}</label>
+                                    {{ form.estado }}
+                                    <small class="text-info">
+                                        Desmarque la casilla para deshabilitar el servicio
+                                    </small>
+                                </div>
+
+
+                                <!--  {{ form.as_p }}-->
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span>
+                                        Guardar
+                                    </button>
+                                    <a href="{% url 'ins:inscripcion_list' %}" class="btn btn-success"><span
+                                            class="fa fa-undo"></span>Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block js_page %}
+{% endblock %}

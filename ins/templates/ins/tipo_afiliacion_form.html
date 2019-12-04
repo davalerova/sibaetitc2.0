@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+
+{% block page_content %}
+<form method="POST" class="form">
+    {% csrf_token %}
+    <div class="col-xl-6 col-md-6 mb-6">
+        {% if obj %}
+        <div class="card border-left-warning shadow h-100 py-2">
+            {% else %}
+            <div class="card border-left-success shadow h-100 py-2">
+                {% endif %}
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                {% if obj %} Editar {% else %} Nuevo {% endif %} tipo de afiliación
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{ form.descripcion.label_tag }}</label>
+                                    <div class="form-group"> {{ form.descripcion }}
+                                        <small class="text-info">
+                                            Ingrese la descripción del tipo de afiliación
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ form.valor_porcentaje_descuento.label_tag }}</label>
+                                    {{ form.valor_porcentaje_descuento }}
+                                    <small class="text-info">
+                                        Ingrese el valor del pporcentaje de descuento
+                                    </small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>{{ form.estado.label_tag }}</label>
+                                    {{ form.estado }}
+                                    <small class="text-info">
+                                        Desmarque la casilla para deshabilitar el tipo de afiliación
+                                    </small>
+                                </div>
+
+
+                                <!--  {{ form.as_p }}-->
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span>
+                                        Guardar
+                                    </button>
+                                    <a href="{% url 'ser:servicio_list' %}" class="btn btn-success"><span
+                                            class="fa fa-undo"></span>Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block js_page %}
+{% endblock %}
