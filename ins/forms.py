@@ -2,6 +2,8 @@ from django import forms
 from django.db import *
 
 from .models import *
+from ben.models import Beneficiario
+from ser.models import Servicio
 from django.contrib.auth.models import User
 
 
@@ -22,6 +24,20 @@ class Tipo_afiliacionForm( forms.ModelForm ):
 
 
 class InscripcionForm( forms.ModelForm ):
+    beneficiario = forms.ModelChoiceField(
+        queryset=Beneficiario.objects.filter( estado=True )
+            .order_by( 'rfid' )
+    )
+
+    servicio = forms.ModelChoiceField(
+        queryset=Servicio.objects.filter( estado=True )
+            .order_by( 'descripcion' )
+    )
+
+    tipo_afiliacion = forms.ModelChoiceField(
+        queryset=Tipo_afiliacion.objects.filter( estado=True )
+            .order_by( 'descripcion' )
+    )
     class Meta:
         model = Inscripcion
         fields = ['beneficiario', 'servicio' ,'tipo_afiliacion'  ,'lunes' ,'martes' , 'miercoles','jueves','viernes','sabado','estado',]

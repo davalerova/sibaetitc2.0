@@ -15,8 +15,8 @@ class Recarga( ClaseModelo ):
 
     beneficiario = models.ForeignKey(
         Beneficiario,
-        help_text='Nombre del beneficiario',
-        verbose_name='Nombre beneficiario',
+        help_text='Beneficiario',
+        verbose_name='Beneficiario',
         on_delete=False
     )
 

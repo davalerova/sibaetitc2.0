@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block page_content %}
-<form method="POST" class="form-inline"  enctype='multipart/form-data'>
+<form method="POST" class="form">
     {% csrf_token %}
     <div class="col-xl-6 col-md-6 mb-6">
         {% if obj %}
@@ -13,22 +13,29 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                {% if obj %} Editar {% else %} Nuevo {% endif %} tipo de beneficiario
+                                {% if obj %} Editar {% else %} Nuevo {% endif %} consumo
                             </div>
                             <div class="dropdown-divider"></div>
-                            <div class="row">
-                                <div class="col-10">
-                                    <div class="form-group">
-                                        <p>Descripcion:</p>{{form.descripcion}}
-                                    </div>
-                                </div>
-                                <div class="col-10">
-                                    <div class="form-group">
-                                        <p>Estado:</p>{{form.estado}}
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>{{ form.inscripcion.label_tag }}</label>
+                                    <div class="form-group"> {{ form.inscripcion }}
+                                        <small class="text-info">
+                                            Seleccione la inscripcion al servicio
+                                        </small>
                                     </div>
                                 </div>
 
-                                <!-- {{ form.as_p }}-->
+                                <div class="form-group">
+                                    <label>{{ form.estado.label_tag }}</label>
+                                    {{ form.estado }}
+                                    <small class="text-info">
+                                        Desmarque la casilla para deshabilitar el consumo
+                                    </small>
+                                </div>
+
+
+                                <!--  {{ form.as_p }}-->
                             </div>
                             <div class="dropdown-divider"></div>
                             <div class="row">
@@ -36,7 +43,7 @@
                                     <button type="submit" class="btn btn-success"><span class="fa fa-save"></span>
                                         Guardar
                                     </button>
-                                    <a href="{% url 'ben:tipo_beneficiario_list' %}" class="btn btn-danger"><span
+                                    <a href="{% url 'des:consumo_list' %}" class="btn btn-danger"><span
                                             class="fa fa-undo"></span>Cancelar</a>
                                 </div>
                             </div>
@@ -48,5 +55,5 @@
     </div>
 </form>
 {% endblock %}
-{% block footer %}
+{% block js_page %}
 {% endblock %}

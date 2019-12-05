@@ -24,6 +24,7 @@ urlpatterns = [
     path('ser/', include(('ser.urls','ser'), namespace='ser')),
     path('ins/', include(('ins.urls','ins'), namespace='ins')),
     path('rec/', include(('rec.urls','rec'), namespace='rec')),
+    path('des/', include(('des.urls','des'), namespace='des')),
 
     path( 'admin/', admin.site.urls ),
 ]

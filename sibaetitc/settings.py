@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ser',
     'ins',
     'rec',
+    'des',
 ]
 
 MIDDLEWARE = [
