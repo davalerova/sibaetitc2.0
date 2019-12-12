@@ -1,5 +1,6 @@
 from django import forms
 from django.db import *
+from ins.models import Inscripcion
 
 from .models import *
 from django.contrib.auth.models import User
@@ -7,6 +8,10 @@ from django.contrib.auth.models import User
 
 ########################################################################################################################
 class ConsumoForm( forms.ModelForm ):
+    inscripcion = forms.ModelChoiceField(
+        queryset=Inscripcion.objects.filter( estado=True )
+            .order_by( 'beneficiario' )
+    )
     class Meta:
         model = Consumo
         fields = ['inscripcion','estado']

@@ -174,7 +174,7 @@ class Beneficiario( ClaseModelo ):
         super( Beneficiario, self ).save()
 
     def __str__(self):
-        return '{} '.format( self.rfid, )
+        return '{} {} {}'.format( self.rfid, self.apellidos, self.nombres)
 
     class Meta:
         verbose_name = 'Beneficiario'

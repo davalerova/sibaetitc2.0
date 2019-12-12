@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'ins',
     'rec',
     'des',
+    'sus',
 ]
 
 MIDDLEWARE = [
